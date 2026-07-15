@@ -82,12 +82,12 @@ class TestHTMLNode(unittest.TestCase):
 
     def test_parent_no_children(self):
         with self.assertRaises(ValueError):
-            p = ParentNode("div", None)
-            p.to_html()
+            ParentNode("div", None)
+            #p.to_html()
 
     def test_parent_no_tag(self):
         with self.assertRaises(ValueError):
-            p = ParentNode(None, [])
-            p.to_html()
+            ParentNode(None, [])
+            #p.to_html()
 if __name__ == "__main__":
     unittest.main()

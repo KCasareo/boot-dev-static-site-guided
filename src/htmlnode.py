@@ -70,8 +70,8 @@ class ParentNode(HTMLNode):
         )
 
     def to_html(self) -> str:
-        if self.tag is None:
-            raise ValueError()
-        if self.children is None:
-            raise ValueError()
+        #if self.tag is None:
+        #    raise ValueError()
+        #if self.children is None:
+        #    raise ValueError()
         return f"<{self.tag}{self.props_to_html()}>{"".join([child.to_html() for child in self.children])}</{self.tag}>"
