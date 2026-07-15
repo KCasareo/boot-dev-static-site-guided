@@ -17,10 +17,10 @@ class HTMLNode():
         pass
 
     def to_html(self):
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def props_to_html(self) -> str:
-        return f"{"".join([" " + str(k) + "=" + f"\"{str(v)}\"" for k,v in self.props.items()])}"
+        return f"{"".join([" " + str(k) + "=" + f"\"{str(v)}\"" for k,v in self.props.items()]) if self.props is not None else ""}"
         pass
 
     def __repr__(self) -> str:
@@ -34,6 +34,8 @@ class LeafNode(HTMLNode):
         value: str,
         props: dict[str,str|None]|None = None
     ):
+        if value is None:
+            raise ValueError()
         super().__init__(
             tag,
             value,
@@ -41,8 +43,35 @@ class LeafNode(HTMLNode):
             props
         )
     def to_html(self) -> str:
-        if self.value is None:
-            raise ValueError
+        #        if self.value is None:
+        #   raise ValueError()
         if self.tag is None:
             return self.value
         return f"<{self.tag}{self.props_to_html() if self.props is not None else ""}>{self.value}</{self.tag}>"
+
+
+class ParentNode(HTMLNode):
+    def __init__(
+        self,
+        tag: str,
+        children : list[HTMLNode],
+        props: dict[str, str|None]|None = None
+
+    ):
+        if tag is None:
+            raise ValueError()
+        if children is None:
+            raise ValueError()
+        super().__init__(
+            tag,
+            None,
+            children,
+            props
+        )
+
+    def to_html(self) -> str:
+        if self.tag is None:
+            raise ValueError()
+        if self.children is None:
+            raise ValueError()
+        return f"<{self.tag}{self.props_to_html()}>{"".join([child.to_html() for child in self.children])}</{self.tag}>"
