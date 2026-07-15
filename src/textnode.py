@@ -45,7 +45,7 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
 ## LeafNode(tag, value, props)
     ## Helper function
     def prepare_html(type: TextType) -> Tuple[str|None,str|None,dict[str,str]|None]:
-        nonlocal text_node
+        #nonlocal text_node
         match(type):
             case TextType.TEXT:
                 return None, text_node.text, None
