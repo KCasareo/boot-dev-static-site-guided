@@ -5,7 +5,7 @@ from textnode import TextType
 
 
 def main():
-    test : TextNode = TextNode("This is some anchor text", TextType.Link, "https://www.boot.dev")
+    test : TextNode = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
     print(f"{repr(test)}")
 
 

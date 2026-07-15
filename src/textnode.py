@@ -2,11 +2,11 @@ from __future__ import annotations
 
 from enum import Enum
 class TextType(Enum):
-    Bold = 1
-    Italic = 2
-    Code = 3
-    Link = 4
-    Image = 5
+    BOLD = 1
+    ITALICS = 2
+    CODE = 3
+    LINK = 4
+    IMAGE = 5
 
 class TextNode(object):
     def __init__(
