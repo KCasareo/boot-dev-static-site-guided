@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-
+from functools import reduce
 from enum import Enum
 from htmlnode import LeafNode
 from typing import Tuple
+import operator
 
 class TextType(Enum):
     TEXT = 0
@@ -62,4 +63,31 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
     tag,val,props = prepare_html(text_node.text_type)
 
     return LeafNode(tag,val,props)
+
+def split_nodes_delimiter(
+    old_nodes: list[TextNode],
+    delimiter: str,
+    text_type: TextType
+) -> list[TextNode]:
+    # this method is for paired tags only
+    # special cases for link and image require their own function
+    def munch_token(text_node : TextNode) -> list[Tuple[TextType,str]]:
+        # ordered list of all elements
+        res : list[Tuple[TextType,str]] = []
+        # list of all elements
+        # elems in pos 1, 3, 5, etc. are inside a code block
+        ss : list[str] = text_node.text.split(delimiter)
+        print(f"ss value: {ss}")
+        ## look for pairs
+        for item in range(len(ss)):
+            res.append((TextType.TEXT if item % 2 == 0 else text_type, ss[item]))
+        print(f"res value: {res}")
+        return res
+        pass
+    # take the list of nodes, then flatten to a single dimensional list for processing
+    ## FUTURE: loop through all list of old nodes to allow for matching, then flatten the combined list after everything is done
+    new_nodes : list[Tuple[TextType,str]] = reduce(operator.add, [munch_token(node) for node in old_nodes])
+    print(f"new_nodes value: {new_nodes}")
+    return [TextNode(item[1],item[0]) for item in new_nodes]
+    pass
 

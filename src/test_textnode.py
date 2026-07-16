@@ -1,7 +1,7 @@
 import unittest
 from utils import log_name
 
-from textnode import TextNode, TextType, text_node_to_html_node
+from textnode import TextNode, TextType, text_node_to_html_node, split_nodes_delimiter
 from htmlnode import LeafNode
 
 class TestTextNode(unittest.TestCase):
@@ -73,5 +73,19 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.tag, "img")
         self.assertEqual(html_node.props["src"], "http://static.getfunnyimage.com")
         self.assertEqual(html_node.props["alt"], "Hover over here!")
+    @log_name(
+        prefix = "test_textnode"
+    )
+    def test_textnode_splice(self):
+        node = TextNode("I have code text in `here it is` and this isn't", TextType.TEXT)
+        lnode : list[TextNode] = [node]
+        result = split_nodes_delimiter(
+            lnode,
+            "`",
+            TextType.CODE
+        )
+        for i in result:
+            print(f"{i.text} {i.text_type}")
+        pass
 if __name__ == "__main__":
     unittest.main()
