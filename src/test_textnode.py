@@ -87,5 +87,24 @@ class TestTextNode(unittest.TestCase):
         for i in result:
             print(f"{i.text} {i.text_type}")
         pass
+
+
+    """
+    extract markdown tests
+    """
+    @log_name(
+        prefix = "test_extract_markdown"
+    )
+    def test_extract_markdown_images(self):
+        desired : list[Tuple[str,str]] = [
+            ("rick roll", "https://i.imgur.com/aKaOqIh.gif"),
+            ("obi wan", "https://i.imgur.com/fJRm4Vk.jpeg")
+        ]
+        text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+        res = extract_markdown_images(text)
+        
+        def 
+
+        pass
 if __name__ == "__main__":
     unittest.main()

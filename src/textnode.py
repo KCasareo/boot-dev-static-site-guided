@@ -91,3 +91,8 @@ def split_nodes_delimiter(
     return [TextNode(item[1],item[0]) for item in new_nodes]
     pass
 
+
+def extract_markdown_images(text: str) 
+    -> list[Tuple[str, str]]:
+    pass
+
