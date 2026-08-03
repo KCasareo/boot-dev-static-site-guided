@@ -5,6 +5,8 @@ from enum import Enum
 from htmlnode import LeafNode
 from typing import Tuple
 import operator
+import re
+
 
 class TextType(Enum):
     TEXT = 0
@@ -92,7 +94,22 @@ def split_nodes_delimiter(
     pass
 
 
-def extract_markdown_images(text: str) 
-    -> list[Tuple[str, str]]:
+def extract_markdown_images(
+    text: str
+) -> list[Tuple[str, str]]:
+    matches = re.findall(
+        r"!\[(.*?)\]\((.*?)\)",
+        text
+    )
+    return matches
     pass
+
+def extract_markdown_links(
+        text: str
+) -> list[Tuple[str, str]]:
+    matches = re.findall(
+        r"\[(.*?)\]\((.*?)\)",
+        text
+    )
+    return matches
 
