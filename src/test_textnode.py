@@ -127,7 +127,11 @@ class TestTextNode(unittest.TestCase):
         res = extract_markdown_links(text)
         print(f"Result text:\n{res}")
         self.assertListEqual(expected, res)
-
+    
+    @log_name(
+        prefix = "test_split_nodes_image"
+    )
+    # added defaults for @parameterized.expand
     def test_split_nodes_image(
         self,
         expected : list[TextNode] = [

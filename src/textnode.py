@@ -79,17 +79,17 @@ def split_nodes_delimiter(
         # list of all elements
         # elems in pos 1, 3, 5, etc. are inside a code block
         ss : list[str] = text_node.text.split(delimiter)
-        print(f"ss value: {ss}")
+        #print(f"ss value: {ss}")
         ## look for pairs
         for item in range(len(ss)):
             res.append((TextType.TEXT if item % 2 == 0 else text_type, ss[item]))
-        print(f"res value: {res}")
+        #print(f"res value: {res}")
         return res
         pass
     # take the list of nodes, then flatten to a single dimensional list for processing
     ## FUTURE: loop through all list of old nodes to allow for matching, then flatten the combined list after everything is done
     new_nodes : list[Tuple[TextType,str]] = reduce(operator.add, [munch_token(node) for node in old_nodes])
-    print(f"new_nodes value: {new_nodes}")
+    #print(f"new_nodes value: {new_nodes}")
     return [TextNode(item[1],item[0]) for item in new_nodes]
     pass
 
@@ -116,6 +116,16 @@ def extract_markdown_links(
 def split_nodes_image(
     old_nodes: list[TextNode]
 ) -> list[TextNode]:
+    result : list[TextNode]= []
+    # happy path
+    # 1. get md list
+    image_nodes = extract_markdown_images(old_nodes)
+    # 2. use as delim
+    for node in old nodes:
+            
+
+
+        
     raise NotImplementedError()
 
 def split_nodes_link(
