@@ -119,10 +119,22 @@ def split_nodes_image(
     result : list[TextNode]= []
     # happy path
     # 1. get md list
-    image_nodes = extract_markdown_images(old_nodes)
+    #image_nodes = extract_markdown_images(old_nodes)
     # 2. use as delim
-    for node in old nodes:
-            
+    for node in old_nodes:
+        if node.text_type is not TextType.TEXT:
+            # maybe just push onto result list as is
+            result.append(node)
+            continue
+        # otherwise, parse the node and rip 
+        image_nodes = extract_markdown_images(node.text)
+        # start running through each separator
+        # generate a delimiter from a regex pipe match of an image link string
+        text_only : str = re.split(fr"{"|".join([ f"![{inode[0]}]({inode[1]})" for inode in image_nodes])}", node.text)
+        ## get first chunk
+        ## insert next node
+        # parsing behavior here on each node
+        
 
 
         
