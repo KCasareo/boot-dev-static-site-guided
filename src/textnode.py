@@ -121,6 +121,24 @@ def split_nodes_image(
     # 1. get md list
     #image_nodes = extract_markdown_images(old_nodes)
     # 2. use as delim
+    def munch_nodes(
+        remaining : str, # chunks leftover for processing
+        pattern : list[str], # next delimiter to check
+    ) -> list[str]:
+        # base case
+        if len(remaining) == 0:
+            return []
+        ## needs logic to append if there are still remaining nodes
+        r = re.split(
+            pattern[0],
+            remaining,
+            maxsplit=1
+        )
+        # result should be the first chunk, followed by the delimiter, then munch_nodes called with the slice from pos 1
+        # # needs guard clauses and defaults
+        result = [r[0], pattern[0]] + munch_nodes(r[], pattern[1:] if pattern )
+        pass
+
     for node in old_nodes:
         if node.text_type is not TextType.TEXT:
             # maybe just push onto result list as is
@@ -130,9 +148,10 @@ def split_nodes_image(
         image_nodes = extract_markdown_images(node.text)
         # start running through each separator
         # generate a delimiter from a regex pipe match of an image link string
-        #
+        # 
         pattern = "|".join(map(re.escape, [ f"![{inode[0]}]({inode[1]})" for inode in image_nodes ]))
         # maybe a function that just munches on nodes
+        # get the first chunk, eat, then insert?
         text_only : str = re.split(
             pattern,
             node.text,
