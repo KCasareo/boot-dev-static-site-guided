@@ -130,13 +130,23 @@ def split_nodes_image(
         image_nodes = extract_markdown_images(node.text)
         # start running through each separator
         # generate a delimiter from a regex pipe match of an image link string
-        text_only : str = re.split(fr"{"|".join([ f"![{inode[0]}]({inode[1]})" for inode in image_nodes])}", node.text)
+        #
+        pattern = "|".join(map(re.escape, [ f"![{inode[0]}]({inode[1]})" for inode in image_nodes ]))
+        # maybe a function that just munches on nodes
+        text_only : str = re.split(
+            pattern,
+            node.text,
+            maxsplit=1
+        )
         ## get first chunk
         ## insert next node
         # parsing behavior here on each node
-        
+        # start creating 
+        tnode_images = []
+        #for inode in image_nodes:
 
 
+    return result
         
     raise NotImplementedError()
 
